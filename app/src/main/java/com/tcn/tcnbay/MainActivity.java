@@ -1,5 +1,6 @@
 package com.tcn.tcnbay;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case 1: {
                 if (!(grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     Toast.makeText(this, "deu ruim", Toast.LENGTH_SHORT);
                 }
             }
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        requestPermissions(new String[] {"WRITE_EXTERNAL_STORAGE"}, 1);
+        requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         vv = findViewById(R.id.videoView);
         b = findViewById(R.id.btn);
         MediaController mc = new MediaController(this);
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mc.setAnchorView(vv);
         vv.setMediaController(mc);
-        String ip = "192.168.1.161";
+        String ip = "10.0.2.2";
         int port = 50000;
         VideoDownloadTask mct = new VideoDownloadTask(ip,port);
         mct.execute();
