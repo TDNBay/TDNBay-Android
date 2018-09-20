@@ -1,7 +1,11 @@
 package com.tcn.tcnbay.conex;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -62,8 +66,23 @@ public class Connection {
         return true;
     }
 
+    // RDT maldito
     public boolean sendData(byte header, File file) {
-
+        try {
+            FileInputStream stream = new FileInputStream(file);
+            OutputStream out = socket.getOutputStream();
+            out.write(header);
+            byte[] báfer = new byte[8192];
+            while(stream.read(báfer) != -1) {
+                out.write(báfer);
+            }
+            out.close();
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 

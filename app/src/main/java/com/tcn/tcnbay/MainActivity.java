@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mc.setAnchorView(vv);
         vv.setMediaController(mc);
-        String ip = "10.0.2.2";
+        String ip = "172.20.9.239";
         int port = 50000;
         VideoDownloadTask mct = new VideoDownloadTask(ip,port);
         mct.execute();
