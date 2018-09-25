@@ -1,13 +1,11 @@
 package com.tcn.tcnbay.conex;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -21,71 +19,57 @@ public class Connection {
         this.port = port;
     }
 
-    public boolean establish() {
-        try {
-            socket = new Socket(InetAddress.getByName(ip), port);
-        } catch (IOException e) {
-            e.printStackTrace();
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                    return false;
-                }
-            }
-            return false;
-        }
-        return true;
+    public void establish() throws IOException {
+        socket = new Socket(InetAddress.getByName(ip), port);
     }
 
-    public boolean sendData(byte header, byte[] data) {
-        try {
-            OutputStream out = socket.getOutputStream();
-            out.write(header);
-            out.write(data);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public void end() throws IOException {
+        socket.close();
     }
 
-    public boolean sendData(byte header, String data) {
-        try {
-            OutputStream out = socket.getOutputStream();
-            out.write(header);
-            byte[] arr = data.getBytes();
-            out.write(arr);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public void sendData(byte header, byte[] data) throws IOException {
+        OutputStream out = socket.getOutputStream();
+        long len = data.length;
+        byte[] lenh = BigInteger.valueOf(len).toByteArray();
+        out.write(header);
+        out.write(lenh.length);
+        out.write(lenh);
+        out.write(data);
+        out.close();
+    }
+
+    public void sendData(byte header, String data) throws IOException {
+        OutputStream out = socket.getOutputStream();
+        byte[] arr = data.getBytes();
+        long len = arr.length;
+        byte[] lenh = BigInteger.valueOf(len).toByteArray();
+        out.write(header);
+        out.write(lenh.length);
+        out.write(lenh);
+        out.write(arr);
+        out.close();
     }
 
     // RDT maldito
-    public boolean sendData(byte header, File file) {
-        try {
-            FileInputStream stream = new FileInputStream(file);
-            OutputStream out = socket.getOutputStream();
-            out.write(header);
-            byte[] báfer = new byte[8192];
-            while(stream.read(báfer) != -1) {
-                out.write(báfer);
-            }
-            out.close();
-            stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+    public void sendData(byte header, File file) throws IOException {
+        FileInputStream stream = new FileInputStream(file);
+        long len = file.length();
+        byte[] lenh = BigInteger.valueOf(len).toByteArray();
+        OutputStream out = socket.getOutputStream();
+        out.write(header);
+        out.write(lenh.length);
+        out.write(lenh);
+        byte[] báfer = new byte[8192];
+        while (stream.read(báfer) != -1) {
+            out.write(báfer);
         }
-        return true;
+        out.close();
+        stream.close();
     }
 
-
+    public InputStream getInputStream() throws IOException {
+        return socket.getInputStream();
+    }
 
 
 }
