@@ -42,38 +42,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        vv = findViewById(R.id.videoView);
-        b = findViewById(R.id.btn);
-        MediaController mc = new MediaController(this);
-        mc.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                Toast.makeText(getApplicationContext(), "scrolled", Toast.LENGTH_SHORT).show();
-            }
-        });
-        mc.setAnchorView(vv);
-        vv.setMediaController(mc);
-        String ip = "172.20.9.239";
-        int port = 50000;
-        VideoDownloadTask mct = new VideoDownloadTask(ip,port);
-        mct.execute();
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    vv.setVideoFD((new FileInputStream(new File("/sdcard/tempVideo.mp4")).getFD()));
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                vv.seekTo(0);
-                vv.start();
-            }
-        });
+        View rootView = findViewById(R.id.root);
+//        requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//        vv = findViewById(R.id.videoView);
+//        b = findViewById(R.id.btn);
+//        MediaController mc = new MediaController(this);
+//        mc.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//                Toast.makeText(getApplicationContext(), "scrolled", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        mc.setAnchorView(vv);
+//        vv.setMediaController(mc);
+//        String ip = "172.20.9.239";
+//        int port = 50000;
+//        VideoDownloadTask mct = new VideoDownloadTask(ip,port);
+//        mct.execute();
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    vv.setVideoFD((new FileInputStream(new File("/sdcard/tempVideo.mp4")).getFD()));
+//                } catch (FileNotFoundException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//                vv.seekTo(0);
+//                vv.start();
+//            }
+//        });
     }
 
     public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {

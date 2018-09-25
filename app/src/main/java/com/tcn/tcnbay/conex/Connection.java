@@ -40,7 +40,7 @@ public class Connection {
 
     public void sendData(byte header, String data) throws IOException {
         OutputStream out = socket.getOutputStream();
-        byte[] arr = data.getBytes();
+        byte[] arr = data.getBytes("UTF-8");
         long len = arr.length;
         byte[] lenh = BigInteger.valueOf(len).toByteArray();
         out.write(header);

@@ -63,7 +63,10 @@ public class TDNDataSource implements DataSource {
 
     @Override
     public int read(byte[] buffer, int offset, int readLength) throws IOException {
-        return is.read(buffer, offset, readLength);
+        int read =  is.read(buffer, offset, readLength);
+        if (read == -1)
+            return C.RESULT_END_OF_INPUT;
+        return read;
     }
 
     @Nullable
