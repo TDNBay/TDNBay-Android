@@ -1,9 +1,9 @@
 package com.tcn.tcnbay.conex;
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.InetAddress;
@@ -35,7 +35,7 @@ public class Connection {
         out.write(lenh.length);
         out.write(lenh);
         out.write(data);
-        out.close();
+        out.flush();
     }
 
     public void sendData(byte header, String data) throws IOException {
@@ -47,7 +47,7 @@ public class Connection {
         out.write(lenh.length);
         out.write(lenh);
         out.write(arr);
-        out.close();
+        out.flush();
     }
 
     // RDT maldito
@@ -63,12 +63,12 @@ public class Connection {
         while (stream.read(báfer) != -1) {
             out.write(báfer);
         }
-        out.close();
+        out.flush();
         stream.close();
     }
 
-    public InputStream getInputStream() throws IOException {
-        return socket.getInputStream();
+    public DataInputStream getInputStream() throws IOException {
+        return new DataInputStream(socket.getInputStream());
     }
 
 
