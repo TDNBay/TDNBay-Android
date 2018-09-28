@@ -27,6 +27,14 @@ public class Connection {
         socket.close();
     }
 
+    public void endSilent() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendData(byte header, byte[] data) throws IOException {
         OutputStream out = socket.getOutputStream();
         long len = data.length;
