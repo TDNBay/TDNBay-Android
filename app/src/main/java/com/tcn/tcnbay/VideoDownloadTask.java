@@ -2,7 +2,6 @@ package com.tcn.tcnbay;
 
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.widget.Toast;
 
 import com.tcn.tcnbay.conex.Connection;
 import com.tcn.tcnbay.conex.Header;
@@ -13,28 +12,30 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
 
-    String dstAddress;
-    int dstPort;
-    String response = "";
-    Socket socket = null;
     IVideoInformation callback;
     private Integer error = null;
     private Req req;
+    private Long totalBytes = null;
+    private Long availableBytes = null;
 
-    VideoDownloadTask(IVideoInformation callback, Req req) {
-        this.callback = callback;
+    public VideoDownloadTask(Req req) {
         this.req = req;
+    }
+
+    public void setCallback(IVideoInformation callback) {
+        this.callback = callback;
+        if (totalBytes != null)
+        callback.updateTotalBytes(totalBytes);
+        if (availableBytes != null)
+            callback.updateAvailableBytes(availableBytes);
     }
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        Connection c = new Connection("10.0.2.2", 50000);
+        Connection c = new Connection("192.168.1.161", 50000);
         try {
             c.establish();
         } catch (IOException e) {
@@ -60,9 +61,12 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
             c.endSilent();
             return null;
         }
-        callback.updateAvailableBytes(header.fileLen);
+        callback.updateTotalBytes(header.fileLen);
+        totalBytes = header.fileLen;
         // TODO: tratar casos de erro no header
-        File f = new File(Environment.getExternalStorageDirectory().getPath() + "TDNBay/cache/videoDownloadCache");
+        File parentFile = new File(Environment.getExternalStorageDirectory().getPath() + "/TDNBay/cache/");
+        parentFile.mkdirs();
+        File f = new File(parentFile, "videoDownloadCache.tdn");
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -91,12 +95,13 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
         }
         int len;
         long tot = 0;
-        byte[] buffer = new byte[1000000];
+        byte[] buffer = new byte[8192];
         try {
             while ((len = is.read(buffer)) != -1) {
                 os.write(buffer, 0, len);
                 tot += len;
                 callback.updateAvailableBytes(tot);
+                availableBytes = tot;
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TCNBay</string>
+    <string name="title_activity_video_list">VideoList</string>
+    <string name="action_settings">Settings</string>
 </resources>
