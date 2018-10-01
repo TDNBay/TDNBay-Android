@@ -35,7 +35,7 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        Connection c = new Connection("192.168.1.161", 50000);
+        Connection c = new Connection("10.0.2.2", 50000);
         try {
             c.establish();
         } catch (IOException e) {
