@@ -1,4 +1,4 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.media;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
+import com.tcn.tcnbay.background.tasks.VideoDownloadTask;
 import com.tcn.tcnbay.conex.Req;
 
 import java.io.EOFException;
@@ -21,9 +22,13 @@ public class TDNDataSource implements DataSource {
     private VideoDownloadTask task;
     private int vid;
     private long bytesRemaining;
+    private String ip;
+    private int port;
 
-    public TDNDataSource(int vid) {
+    public TDNDataSource(int vid, String ip, int port) {
         this.vid = vid;
+        this.ip = ip;
+        this.port = port;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class TDNDataSource implements DataSource {
         stream.loadBuffer();
         if (!reqDetail.equals(req.detail)) {
             reqDetail = req.detail;
-            VideoDownloadTask task = new VideoDownloadTask(req);
+            VideoDownloadTask task = new VideoDownloadTask(req, ip, port);
             task.setCallback(stream);
             task.execute();
             this.task = task;

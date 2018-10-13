@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.UploadVideoActivity">
+    tools:context=".activities.ServerSetupActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/uploadVideoToolbar"
+            android:id="@+id/serverSetupToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -29,24 +29,49 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_videos_to_queue"/>
+            android:text="@string/setup_server_hint"/>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
         <EditText
-            android:id="@+id/txtVideoTitle"
+            android:id="@+id/txtServerHost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/video_title"
+            android:hint="@string/server_host_hint"
             android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
-        <Button
-            android:id="@+id/btnSelectFile"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/select_video_file"/>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+        <EditText
+            android:id="@+id/txtServerPort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/server_port_hint"
+            android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText
+                android:id="@+id/txtServerPortHttp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/image_server_port_hint"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/btnConfigServer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

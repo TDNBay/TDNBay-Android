@@ -1,32 +1,29 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.background.tasks.service;
 
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
+import com.tcn.tcnbay.R;
+import com.tcn.tcnbay.activities.VideoList;
+import com.tcn.tcnbay.background.tasks.VideoUploadTask;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import static com.tcn.tcnbay.App.CHANNEL_ID;
 
 public class VideoUploadService extends Service {
 
-    private ArrayList<VideoUploadTask> jobs;
-
     private int jobCount = 0;
     private int totJob = 0;
 
-    @Override
-    public void onCreate() {
-        jobs = new ArrayList<>();
-        super.onCreate();
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -41,7 +38,10 @@ public class VideoUploadService extends Service {
             e.printStackTrace();
             return START_NOT_STICKY;
         }
-        VideoUploadTask task = new VideoUploadTask(is, fileName,this);
+        SharedPreferences sp = getSharedPreferences("server_setup", MODE_PRIVATE);
+        String ip = sp.getString("host", "casaamorim.no-ip.biz");
+        int port = sp.getInt("port", 50000);
+        VideoUploadTask task = new VideoUploadTask(is, fileName,this, ip, port);
         task.execute();
         jobCount += 1;
         totJob += 1;

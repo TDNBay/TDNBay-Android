@@ -1,12 +1,14 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.background.tasks;
 
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tcn.tcnbay.media.TDNVideoHeader;
 import com.tcn.tcnbay.conex.Connection;
 import com.tcn.tcnbay.conex.Header;
 import com.tcn.tcnbay.conex.Req;
+import com.tcn.tcnbay.interfaces.IDownloadCallback;
 import com.tcn.tcnbay.model.Video;
 
 import java.io.ByteArrayOutputStream;
@@ -24,12 +26,17 @@ public class VideoListDownloadTask extends AsyncTask<Void, Void, Void> {
 
     private Integer error;
 
-    public VideoListDownloadTask(IDownloadCallback callback) {
+    private String ip;
+    private int port;
+
+    public VideoListDownloadTask(IDownloadCallback callback, String ip, int port) {
         this.callback = callback;
+        this.ip = ip;
+        this.port = port;
     }
     @Override
     protected Void doInBackground(Void... arg0) {
-        Connection c = Connection.defaultInstance();
+        Connection c = new Connection(ip, port);
         Req req = new Req("filelist", "");
         try {
             c.establish();

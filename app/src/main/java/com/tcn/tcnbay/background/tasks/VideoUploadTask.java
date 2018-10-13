@@ -1,7 +1,8 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.background.tasks;
 
 import android.os.AsyncTask;
 
+import com.tcn.tcnbay.background.tasks.service.VideoUploadService;
 import com.tcn.tcnbay.conex.Connection;
 import com.tcn.tcnbay.conex.Header;
 import com.tcn.tcnbay.conex.Req;
@@ -18,16 +19,20 @@ public class VideoUploadTask extends AsyncTask<Void, Integer, Void> {
     private WeakReference<VideoUploadService> service;
 
     private String fileName;
+    private String ip;
+    private int port;
 
-    public VideoUploadTask(InputStream fileIs, String fileName, VideoUploadService service) {
+    public VideoUploadTask(InputStream fileIs, String fileName, VideoUploadService service, String ip, int port) {
         file = fileIs;
         this.fileName = fileName;
         this.service = new WeakReference<>(service);
+        this.ip = ip;
+        this.port = port;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
-        Connection c = Connection.defaultInstance();
+        Connection c = new Connection(ip, port);
         try {
             c.establish();
         } catch (IOException e) {

@@ -1,7 +1,9 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.media;
 
 import android.os.Environment;
 import android.util.Log;
+
+import com.tcn.tcnbay.interfaces.IVideoInformation;
 
 import java.io.File;
 import java.io.IOException;

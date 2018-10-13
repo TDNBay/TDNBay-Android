@@ -1,4 +1,4 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.interfaces;
 
 import com.tcn.tcnbay.model.Video;
 

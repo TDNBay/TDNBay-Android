@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoList">
+    tools:context=".activities.VideoList">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         android:id="@+id/videoList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".VideoList"
+        tools:context=".activities.VideoList"
         tools:listitem="@layout/fragment_file" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

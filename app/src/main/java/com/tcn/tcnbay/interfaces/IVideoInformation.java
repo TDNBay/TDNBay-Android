@@ -1,4 +1,4 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.interfaces;
 
 public interface IVideoInformation {
     public void updateAvailableBytes(long bytes);

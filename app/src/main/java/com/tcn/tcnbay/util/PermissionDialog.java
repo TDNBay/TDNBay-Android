@@ -1,10 +1,13 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.util;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.tcn.tcnbay.R;
+import com.tcn.tcnbay.interfaces.IDialogCallback;
 
 public class PermissionDialog extends DialogFragment {
 

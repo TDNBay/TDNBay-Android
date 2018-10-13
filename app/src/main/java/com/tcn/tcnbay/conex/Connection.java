@@ -19,10 +19,6 @@ public class Connection {
         this.port = port;
     }
 
-    public static Connection defaultInstance() {
-        return new Connection("192.168.1.158", 50000);
-    }
-
     public void establish() throws IOException {
         socket = new Socket(InetAddress.getByName(ip), port);
     }

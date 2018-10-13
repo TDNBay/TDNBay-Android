@@ -1,7 +1,8 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +16,9 @@ import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.tcn.tcnbay.R;
+import com.tcn.tcnbay.media.TDNDataSource;
+import com.tcn.tcnbay.media.TDNFactory;
 
 public class MainActivity extends Activity {
 
@@ -41,7 +45,8 @@ public class MainActivity extends Activity {
         playerView.setPlayer(player);
         playerView.setShowBuffering(true);
         playerView.setUseController(true);
-        TDNFactory factory = new TDNFactory(videoId);
+        SharedPreferences sp = getSharedPreferences("server_setup", MODE_PRIVATE);
+        TDNFactory factory = new TDNFactory(videoId, sp.getString("host", "casaamorim.no-ip.biz"), sp.getInt("port", 50000));
         ds = factory.getDataSource();
         MediaSource videoSource = new ExtractorMediaSource.Factory(factory).createMediaSource(Uri.parse("data://video"));
         player.prepare(videoSource);

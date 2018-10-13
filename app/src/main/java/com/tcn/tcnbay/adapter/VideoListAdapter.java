@@ -1,4 +1,4 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.tcn.tcnbay.R;
+import com.tcn.tcnbay.interfaces.OnListFragmentInteractionListener;
 import com.tcn.tcnbay.model.Video;
 
 import java.util.List;
@@ -18,11 +20,15 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
     private List<Video> mVideos;
     private final OnListFragmentInteractionListener mListener;
     private final Activity context;
+    private String host;
+    private int port;
 
-    public VideoListAdapter(Activity context, List<Video> items, OnListFragmentInteractionListener listener) {
+    public VideoListAdapter(Activity context, List<Video> items, OnListFragmentInteractionListener listener, String host, int port) {
         mVideos = items;
         mListener = listener;
         this.context = context;
+        this.host = host;
+        this.port = port;
     }
 
     public void updateList(List<Video> list) {
@@ -43,7 +49,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.View
         holder.mItem = mVideos.get(position);
         holder.mTitleView.setText(mVideos.get(position).title);
         holder.mNumberViewsView.setText(context.getResources().getQuantityString(R.plurals.video_views, mVideos.get(position).views, mVideos.get(position).views));
-        Picasso.get().load("http://192.168.1.158:8000/files/thumb/" + mVideos.get(position).thumbnail).placeholder(R.drawable.placeholder).fit().centerCrop().into(holder.mVideoThumbnailView);
+        Picasso.get().load("http://" + host + ":" + port + "/files/thumb/" + mVideos.get(position).thumbnail).placeholder(R.drawable.placeholder).fit().centerCrop().into(holder.mVideoThumbnailView);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

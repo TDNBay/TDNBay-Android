@@ -1,8 +1,4 @@
-package com.tcn.tcnbay;
-
-import android.util.Log;
-
-import com.tcn.tcnbay.conex.Header;
+package com.tcn.tcnbay.media;
 
 import java.io.IOException;
 import java.io.InputStream;

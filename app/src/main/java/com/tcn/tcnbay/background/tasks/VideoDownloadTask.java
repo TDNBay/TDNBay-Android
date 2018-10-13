@@ -1,11 +1,13 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.background.tasks;
 
 import android.os.AsyncTask;
 import android.os.Environment;
 
+import com.tcn.tcnbay.media.TDNVideoHeader;
 import com.tcn.tcnbay.conex.Connection;
 import com.tcn.tcnbay.conex.Header;
 import com.tcn.tcnbay.conex.Req;
+import com.tcn.tcnbay.interfaces.IVideoInformation;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -20,11 +22,15 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
     private Req req;
     private Long totalBytes = null;
     private Long availableBytes = null;
+    private String ip;
+    private int port;
 
     private boolean shouldCancelNow = false;
 
-    public VideoDownloadTask(Req req) {
+    public VideoDownloadTask(Req req, String ip, int port) {
         this.req = req;
+        this.ip = ip;
+        this.port = port;
     }
 
     public void cancelWheneverPossible() {
@@ -41,7 +47,7 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        Connection c = Connection.defaultInstance();
+        Connection c = new Connection(ip, port);
         try {
             c.establish();
         } catch (IOException e) {

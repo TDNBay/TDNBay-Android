@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "TDN VoD Alpha">]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "TDN VoD">]>
 
 <resources>
-    <string name="app_name">&appname;</string>
-    <string name="title_activity_video_list">VideoList</string>
+    <string name="app_name" translatable="false">&appname;</string>
+    <string name="title_activity_video_list" translatable="false">VideoList</string>
     <string name="action_settings">Settings</string>
     <plurals name="video_views">
         <item quantity="one">%d view</item>
@@ -17,6 +17,15 @@
     <string name="select_video_file">Select Video File</string>
     <string name="complete_action_using">Complete Action Using</string>
     <string name="video_upload_notif">&appname; video upload</string>
+    <string name="action_server">Server</string>
+    <string name="server_setup_activity">Setup Server</string>
+    <string name="setup_server_hint">Here you can setup the server\'s host and port. Make sure your server is accessible from the network you\'re currently connected.  The image server port is optional, but without it you won\'t be able to see video thumbnails.</string>
+    <string name="server_host_hint">Host</string>
+    <string name="server_port_hint">Port</string>
+    <string name="invalid_host_name_error">Invalid Host Name</string>
+    <string name="invalid_port_number_error">Invalid Port Number</string>
+    <string name="invalid_video_name_error">Invalid Video Name</string>
+    <string name="image_server_port_hint">Image Server Port</string>
     <plurals name="video_upload_progress_notif">
         <item quantity="one">Uploading videos to server now. %d pending file.</item>
         <item quantity="other">Uploading videos to server now. %d pending files.</item>

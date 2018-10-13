@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "TDN VoD">]>
+<resources>
+    <string name="app_name">&appname;</string>
+    <string name="action_settings">Configurações</string>
+    <string name="permission_not_granted">Você negou o acesso ao armazenamento. &appname; precisa dessa permissão para tocar vídeos.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="upload_video_title">Upload de Vídeos</string>
+    <string name="add_videos_to_queue">Adicionar vídeos na fila</string>
+    <string name="video_title">Título do Vídeo</string>
+    <string name="select_video_file">Selecionar Arquivo de Vídeo</string>
+    <string name="complete_action_using">Completar ação usando</string>
+    <string name="video_upload_notif">Upload de Vídeo</string>
+    <string name="action_server">Servidor</string>
+    <string name="server_setup_activity">Configurar Servidor</string>
+    <string name="setup_server_hint">Aqui você pode configurar o IP e porta do servidor.\n\nTenha certeza que seu servidor está acessível a partir da rede que você está conectado. A porta do servidor de imagens é opcional, mas sem ela você não verá as miniaturas dos vídeos.</string>
+    <string name="server_host_hint">Host</string>
+    <string name="server_port_hint">Porta</string>
+    <string name="invalid_host_name_error">Nome de Host Inválido</string>
+    <string name="invalid_port_number_error">Número de Porta Inválido</string>
+    <string name="invalid_video_name_error">Nome do Vídeo Inválido</string>
+    <string name="image_server_port_hint">Porta do Servidor de Imagens</string>
+    <plurals name="video_views">
+        <item quantity="one">%d visualização</item>
+        <item quantity="other">%d visualizações</item>
+    </plurals>
+    <plurals name="video_upload_progress_notif">
+        <item quantity="one">Fazendo upload de vídeos ao servidor. %d arquivo pendente.</item>
+        <item quantity="other">Fazendo upload de vídeos ao servidor. %d arquivos pendentes.</item>
+    </plurals>
+</resources>

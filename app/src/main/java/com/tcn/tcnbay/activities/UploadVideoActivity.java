@@ -1,4 +1,4 @@
-package com.tcn.tcnbay;
+package com.tcn.tcnbay.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.tcn.tcnbay.R;
+import com.tcn.tcnbay.background.tasks.service.VideoUploadService;
 
 public class UploadVideoActivity extends AppCompatActivity {
 
@@ -21,12 +24,13 @@ public class UploadVideoActivity extends AppCompatActivity {
         setSupportActionBar(t);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        setTitle(getString(R.string.upload_video_title));
         editText = findViewById(R.id.txtVideoTitle);
         Button b = findViewById(R.id.btnSelectFile);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validate())
+                    return;
                 Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 photoPickerIntent.setType("video/*");
                 photoPickerIntent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
@@ -35,6 +39,14 @@ public class UploadVideoActivity extends AppCompatActivity {
         });
     }
 
+    private boolean validate() {
+        if (editText.getText().toString().isEmpty()) {
+            editText.setError(getString(R.string.invalid_video_name_error));
+            return false;
+        }
+        editText.setError(null);
+        return true;
+    }
 
 
     @Override
