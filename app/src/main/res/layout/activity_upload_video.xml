@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoList">
+    tools:context=".UploadVideoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/uploadVideoToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,30 +20,27 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical"
         android:layout_marginTop="?attr/actionBarSize">
-
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/videoList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".VideoList"
-        tools:listitem="@layout/fragment_file" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/videoUploadButton"
-        android:src="@drawable/ic_add_black_24dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_videos_to_queue"/>
+        <EditText
+            android:id="@+id/txtVideoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/video_title"
+            android:inputType="text" />
+        <Button
+            android:id="@+id/btnSelectFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_video_file"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

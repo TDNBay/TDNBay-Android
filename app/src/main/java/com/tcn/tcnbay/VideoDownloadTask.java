@@ -21,8 +21,14 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
     private Long totalBytes = null;
     private Long availableBytes = null;
 
+    private boolean shouldCancelNow = false;
+
     public VideoDownloadTask(Req req) {
         this.req = req;
+    }
+
+    public void cancelWheneverPossible() {
+        this.shouldCancelNow = true;
     }
 
     public void setCallback(IVideoInformation callback) {
@@ -35,7 +41,7 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        Connection c = new Connection("10.0.2.2", 50000);
+        Connection c = Connection.defaultInstance();
         try {
             c.establish();
         } catch (IOException e) {
@@ -44,11 +50,19 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
             c.endSilent();
             return null;
         }
+        if (shouldCancelNow) {
+            c.endSilent();
+            return null;
+        }
         try {
             c.sendData(Header.JSON_TYPE, req.serialize());
         } catch (IOException e) {
             error = 2;
             e.printStackTrace();
+            c.endSilent();
+            return null;
+        }
+        if (shouldCancelNow) {
             c.endSilent();
             return null;
         }
@@ -62,6 +76,10 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
             return null;
         }
         callback.updateTotalBytes(header.fileLen);
+        if (shouldCancelNow) {
+            c.endSilent();
+            return null;
+        }
         totalBytes = header.fileLen;
         // TODO: tratar casos de erro no header
         File parentFile = new File(Environment.getExternalStorageDirectory().getPath() + "/TDNBay/cache/");
@@ -93,11 +111,19 @@ public class VideoDownloadTask extends AsyncTask<Void, Void, Void> {
             c.endSilent();
             return null;
         }
+        if (shouldCancelNow) {
+            c.endSilent();
+            return null;
+        }
         int len;
         long tot = 0;
         byte[] buffer = new byte[8192];
         try {
             while ((len = is.read(buffer)) != -1) {
+                if (shouldCancelNow) {
+                    c.endSilent();
+                    return null;
+                }
                 os.write(buffer, 0, len);
                 tot += len;
                 callback.updateAvailableBytes(tot);

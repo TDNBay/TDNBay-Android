@@ -19,12 +19,16 @@ public class TDNDataSource implements DataSource {
     private Uri uri;
     private String reqDetail = "";
     private VideoDownloadTask task;
-
+    private int vid;
     private long bytesRemaining;
+
+    public TDNDataSource(int vid) {
+        this.vid = vid;
+    }
 
     @Override
     public long open(DataSpec dataSpec) throws IOException {
-        Req req = new Req("fileget", "1");
+        Req req = new Req("fileget", String.valueOf(vid));
         TDNVideoInputStream stream = new TDNVideoInputStream();
         stream.loadBuffer();
         if (!reqDetail.equals(req.detail)) {
@@ -78,5 +82,9 @@ public class TDNDataSource implements DataSource {
             stream.close();
             stream = null;
         }
+    }
+
+    public void requestTaskCancellation() {
+        task.cancelWheneverPossible();
     }
 }

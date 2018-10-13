@@ -1,5 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "TDN VoD Alpha">]>
+
 <resources>
-    <string name="app_name">TDN VoD Alpha</string>
+    <string name="app_name">&appname;</string>
     <string name="title_activity_video_list">VideoList</string>
     <string name="action_settings">Settings</string>
+    <plurals name="video_views">
+        <item quantity="one">%d view</item>
+        <item quantity="other">%d views</item>
+    </plurals>
+    <string name="permission_not_granted">You denied access to storage. &appname; needs this permission to play media.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload_video_title">Video Upload</string>
+    <string name="add_videos_to_queue">Add videos to queue</string>
+    <string name="video_title">Video Title</string>
+    <string name="select_video_file">Select Video File</string>
+    <string name="complete_action_using">Complete Action Using</string>
+    <string name="video_upload_notif">&appname; video upload</string>
+    <plurals name="video_upload_progress_notif">
+        <item quantity="one">Uploading videos to server now. %d pending file.</item>
+        <item quantity="other">Uploading videos to server now. %d pending files.</item>
+    </plurals>
 </resources>

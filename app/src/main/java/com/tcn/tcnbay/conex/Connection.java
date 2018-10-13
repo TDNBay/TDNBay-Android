@@ -19,6 +19,10 @@ public class Connection {
         this.port = port;
     }
 
+    public static Connection defaultInstance() {
+        return new Connection("192.168.1.158", 50000);
+    }
+
     public void establish() throws IOException {
         socket = new Socket(InetAddress.getByName(ip), port);
     }
@@ -30,7 +34,7 @@ public class Connection {
     public void endSilent() {
         try {
             socket.close();
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
@@ -77,6 +81,10 @@ public class Connection {
 
     public DataInputStream getInputStream() throws IOException {
         return new DataInputStream(socket.getInputStream());
+    }
+
+    public OutputStream getOutputStream() throws IOException {
+        return socket.getOutputStream();
     }
 
 
